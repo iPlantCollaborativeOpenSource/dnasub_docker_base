@@ -7,8 +7,10 @@ ENV _AUTHOR Matthew Vaughn
 ENV _LICENSE MIT
 ENV _VERSION 0.0.1
 
-# Set up /opt and permantly set PATH
-RUN mkdir -p /opt/bin && echo "export PATH=\$PATH:/opt/bin" >> /etc/profile.d/opt-bin.sh
+# Set up /opt/bin and permantly set PATH
+RUN mkdir -p /opt/bin
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/bin
+WORKDIR /home
 
 # Basics
 RUN yum -y install wget which bzip2 java-1.7.0-openjdk.x86_64
@@ -34,5 +36,3 @@ RUN cd /tmp && wget --no-check-certificate "https://cran.r-project.org/src/base/
 # These are not identical to the ones on Lonestar or in the bundle
 RUN echo -e "source(\"http://bioconductor.org/biocLite.R\");\nbiocLite();\nbiocLite(c(\"cummeRbund\"));" > bio.R
 RUN /opt/bin/Rscript bio.R
-
-WORKDIR /home
