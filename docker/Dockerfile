@@ -1,6 +1,5 @@
 
 FROM centos:centos5
-WORKDIR /home
 MAINTAINER Matthew Vaughn <vaughn@tacc.utexas.edu>
 
 ENV _APP DNALC Lonestar4 runtime base
@@ -36,3 +35,4 @@ RUN cd /tmp && wget --no-check-certificate "https://cran.r-project.org/src/base/
 RUN echo -e "source(\"http://bioconductor.org/biocLite.R\");\nbiocLite();\nbiocLite(c(\"cummeRbund\"));" > bio.R
 RUN /opt/bin/Rscript bio.R
 
+WORKDIR /home
