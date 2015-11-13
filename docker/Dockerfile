@@ -28,7 +28,7 @@ RUN cd Python-2.7.1 && ./configure --prefix=/opt && make && make altinstall /opt
 RUN cd /tmp && wget --no-check-certificate http://pypi.python.org/packages/source/d/distribute/distribute-0.6.27.tar.gz && tar xf distribute-0.6.27.tar.gz && cd distribute-0.6.27 && /opt/bin/python2.7 setup.py install && /opt/bin/easy_install-2.7 virtualenv
 
 # Install R 3.2.1
-RUN yum -y install readline-devel sqlite
+RUN yum -y install readline-devel sqlite curl-devel libxml2-devel
 RUN cd /tmp && wget --no-check-certificate "https://cran.r-project.org/src/base/R-3/R-3.2.1.tar.gz" && tar -zxvf R-3.2.1.tar.gz && cd R-3.2.1 && ./configure --prefix=/opt --with-x=no && make && make install && cd /tmp && rm -rf /tmp/*
 # Install BioC and cummerbund
 # These are not identical to the ones on Lonestar or in the bundle
