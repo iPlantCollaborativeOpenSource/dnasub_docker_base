@@ -8,7 +8,7 @@ ENV _LICENSE MIT
 ENV _VERSION 0.0.1
 
 # Set up /opt and permantly set PATH
-RUN mkdir -p /opt/bin && echo "PATH=\$PATH:/opt/bin" >> /etc/profile
+RUN mkdir -p /opt/bin && echo "export PATH=\$PATH:/opt/bin" >> /etc/profile.d/opt-bin.sh
 
 # Basics
 RUN yum -y install wget which bzip2 java-1.7.0-openjdk.x86_64
