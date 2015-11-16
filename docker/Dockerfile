@@ -36,3 +36,6 @@ RUN cd /tmp && wget --no-check-certificate "https://cran.r-project.org/src/base/
 # These are not identical to the ones on Lonestar or in the bundle
 RUN echo -e "source(\"http://bioconductor.org/biocLite.R\");\nbiocLite();\nbiocLite(c(\"cummeRbund\"));" > bio.R
 RUN /opt/bin/Rscript bio.R
+
+# Ugh. X11 is needed for R and other stuff
+RUN yum -y groupinstall "X Window System" "X Software Development" && yum clean all
