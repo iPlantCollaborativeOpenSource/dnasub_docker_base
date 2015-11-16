@@ -20,6 +20,9 @@ RUN wget --no-check-certificate http://packages.sw.be/rpmforge-release/rpmforge-
 RUN rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt && rpm -K rpmforge-release-0.5.2-2.el5.rf.i386.rpm && rpm -i rpmforge-release-0.5.2-2.el5.rf.i386.rpm && rm rpmforge-release-0.5.2-2.el5.rf.i386.rpm
 RUN yum -y install git-gui && yum clean all
 
+# Ugh. X11 is needed for R and other stuff
+RUN yum -y groupinstall "X Window System" "X Software Development" && yum clean all
+
 # Python 2.7.1 into /opt as per https://gist.github.com/stantonk/4082043
 # Must be done this way to avoid breaking Centos5's yum, which
 # depends on Python 2.4.x
@@ -37,5 +40,3 @@ RUN cd /tmp && wget --no-check-certificate "https://cran.r-project.org/src/base/
 RUN echo -e "source(\"http://bioconductor.org/biocLite.R\");\nbiocLite();\nbiocLite(c(\"cummeRbund\"));" > bio.R
 RUN /opt/bin/Rscript bio.R
 
-# Ugh. X11 is needed for R and other stuff
-RUN yum -y groupinstall "X Window System" "X Software Development" && yum clean all
