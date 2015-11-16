@@ -1,27 +1,7 @@
+# docker build --rm -t iplantc/dnasub_languages .
 
-FROM centos:centos5
+FROM iplantc/dnasub_core
 MAINTAINER Matthew Vaughn <vaughn@tacc.utexas.edu>
-
-ENV _APP DNALC Lonestar4 runtime base
-ENV _AUTHOR Matthew Vaughn
-ENV _LICENSE MIT
-ENV _VERSION 0.0.1
-
-# Set up /opt/bin and permantly set PATH
-RUN mkdir -p /opt/bin
-ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/bin
-WORKDIR /home
-
-# Basics
-RUN yum -y install wget which bzip2 java-1.7.0-openjdk.x86_64 && yum clean all
-
-# Install git as per https://gist.github.com/eddarmitage/2001099
-RUN wget --no-check-certificate http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el5.rf.i386.rpm
-RUN rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt && rpm -K rpmforge-release-0.5.2-2.el5.rf.i386.rpm && rpm -i rpmforge-release-0.5.2-2.el5.rf.i386.rpm && rm rpmforge-release-0.5.2-2.el5.rf.i386.rpm
-RUN yum -y install git-gui && yum clean all
-
-# Ugh. X11 is needed for R and other stuff
-RUN yum -y groupinstall "X Window System" "X Software Development" && yum clean all
 
 # Python 2.7.1 into /opt as per https://gist.github.com/stantonk/4082043
 # Must be done this way to avoid breaking Centos5's yum, which
